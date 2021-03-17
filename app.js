@@ -1,14 +1,18 @@
-# M3-D8-HW-CRUD
+'use strict';
 
-<!--
+console.log('Hi there! 🔥');
+const shit = '💩',
+  fire = '🔥',
+  rocket = '🚀',
+  poudzo = '👍🏻';
 
-            You are building the new Amazon.
+/*             You are building the new Amazon.
             This time you are also responsible for the back office.
 
             THIS is you CRUD endpoint
             https://striveschool-api.herokuapp.com/api/product/
 
-            The product model is
+            The product model is 
 
             {
                 "_id": "5d318e1a8541744830bef139", //SERVER GENERATED
@@ -24,7 +28,7 @@
             }
 
             #---------------------------------------------------------------#
-            EVERY REST API CALL SHOULD BE AUTHENTICATED.
+            EVERY REST API CALL SHOULD BE AUTHENTICATED. 
             Every request to the API should use Token Based Authentication to secure access to the contents.
             You can get your token by registering on: strive.school/studentlogin
 
@@ -42,11 +46,10 @@
             ------ N.B. ------
 
             Tokens duration is set to 14 days. Whenever you'll need to obtain a new one you can send the following request:
-
+            
             POST https://striveschool-api.herokuapp.com/api/account/login
             {
                 "username": "testusername@yourmail.com",
                 "password":"pass"
-            }
-
-        -->
+            }   
+ */
