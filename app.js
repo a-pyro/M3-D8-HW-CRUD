@@ -100,7 +100,7 @@ function CarouselItemComponent(
 ) {
   return `
       <div class="carousel-item ${idx === 1 ? 'active' : ''} ">
-        <div class="card bg-transparent w-50 text-center">
+        <div class="card bg-transparent text-center border-0">
           <img src="${imageUrl}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
