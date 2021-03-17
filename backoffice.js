@@ -24,9 +24,11 @@ async function collectData(e) {
     }, {});
     const response = await sendData(newRobot);
     console.log(response);
-    Array.from(inputFields).forEach((input) => input.value === '');
+    Array.from(inputFields).forEach((input) => (input.value = ''));
     showAlert('Roboto added', 'success');
   } catch (error) {
+    showAlert('Ups some error occured', 'danger');
+
     console.log(error);
   }
 }
