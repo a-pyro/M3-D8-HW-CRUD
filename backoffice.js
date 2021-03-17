@@ -14,26 +14,42 @@ const form = document.getElementById('mainForm');
 form.addEventListener('submit', collectData);
 
 async function collectData(e) {
-  e.preventDefault();
-  const inputFields = document.getElementsByTagName('input');
-  console.log(inputFields);
-  const newRobot = Array.from(inputFields).reduce((acc, cv) => {
-    acc[cv.id] = cv.value;
-    return acc;
-  }, {});
+  try {
+    e.preventDefault();
+    const inputFields = document.getElementsByTagName('input');
+    console.log(inputFields);
+    const newRobot = Array.from(inputFields).reduce((acc, cv) => {
+      acc[cv.id] = cv.value;
+      return acc;
+    }, {});
+
+    const response = await sendData(newRobot);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function sendData(obj) {
-  const response = await fetch(
-    'https://striveschool-api.herokuapp.com/api/product/',
-    {
-      method: 'POST',
-      body: JSON.stringify(obj),
-      headers: {
-        'content-type': 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU',
-      },
+  try {
+    const response = await fetch(
+      'https://striveschool-api.herokuapp.com/api/product/',
+      {
+        method: 'POST',
+        body: JSON.stringify(obj),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU',
+        },
+      }
+    );
+    if (response.ok) {
+      return response;
+    } else {
+      console.log('there mayhave been errors in your request', response);
     }
-  );
+  } catch (error) {
+    console.log(error);
+  }
 }
