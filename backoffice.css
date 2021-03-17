@@ -36,8 +36,8 @@ html {
 } */
 
 body {
-  background: var(--clr-light);
-  color: var(--clr-dark);
+  background: var(--dark);
+  color: var(--light);
   font-family: var(--ff-primary);
   /* font-size: var(--fs-body); */
   /* line-height: 1.6; */
@@ -68,4 +68,8 @@ h6 {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+form {
+  max-width: 500px;
 }
