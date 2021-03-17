@@ -17,12 +17,11 @@ async function collectData(e) {
   try {
     e.preventDefault();
     const inputFields = document.getElementsByTagName('input');
-    console.log(inputFields);
+
     const newRobot = Array.from(inputFields).reduce((acc, cv) => {
       acc[cv.id] = cv.value;
       return acc;
     }, {});
-
     const response = await sendData(newRobot);
     console.log(response);
   } catch (error) {

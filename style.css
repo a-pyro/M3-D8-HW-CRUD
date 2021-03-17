@@ -76,3 +76,9 @@ h6 {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.card-img-top {
+  height: 30vh;
+  width: auto;
+  object-fit: contain;
+}

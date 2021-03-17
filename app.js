@@ -65,7 +65,10 @@ headers: {
 const token =
   'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODc2NTMsImV4cCI6MTYxNzE5NzI1M30.LgLmP34Ytsk8aLQOjvOavdKiTiCaXHjtuGKzjqp1Geg';
 const endpoint = 'https://striveschool-api.herokuapp.com/api/product/';
-
+const carouselInner = document.querySelector(
+  '#carouselExampleControls .carousel-inner'
+);
+console.log(carouselInner);
 const loadProducts = async () => {
   const response = await fetch(
     'https://striveschool-api.herokuapp.com/api/product/',
@@ -77,6 +80,35 @@ const loadProducts = async () => {
     }
   );
   const data = await response.json();
+
   console.log(data);
+  randerData(data);
 };
 window.addEventListener('DOMContentLoaded', loadProducts);
+
+function randerData(data) {
+  carouselInner.innerHTML = data.reduce(
+    (acc, cv, idx) => acc + CarouselItemComponent(cv, idx),
+    ''
+  );
+}
+// https://robohash.org/
+
+function CarouselItemComponent(
+  { brand, description, imageUrl, name, price },
+  idx
+) {
+  return `
+      <div class="carousel-item ${idx === 1 ? 'active' : ''} ">
+        <div class="card bg-transparent w-50 text-center">
+          <img src="${imageUrl}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+            <h3>${brand}</h3>
+            <p class="card-text">${description}</p>
+            <a href="#" class="btn btn-primary">${price}$</a>
+          </div>
+        </div>
+      </div>
+  `;
+}
