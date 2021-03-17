@@ -93,9 +93,11 @@ function randerData(data) {
     ''
   );
   rowCardsSection.innerHTML = data.reduce(
-    (acc, cv, idx) => acc + CardRowComponent(cv, idx),
+    (acc, cv) => acc + CardRowComponent(cv),
     ''
   );
+  const deleteBtns = document.querySelectorAll('.delete-btn');
+  deleteBtns.forEach((btn) => btn.addEventListener('click', deleteMofo));
 }
 // https://robohash.org/
 
@@ -118,21 +120,50 @@ function CarouselItemComponent(
   `;
 }
 
-function CardRowComponent(
-  { brand, description, imageUrl, name, price, _id: id },
-  idx
-) {
+function CardRowComponent({
+  brand,
+  description,
+  imageUrl,
+  name,
+  price,
+  _id: id,
+}) {
   return `
-      <div class="col col-3">
-        <div class="card bg-transparent text-center border-0">
+      <div class="col mb-3 col-3">
+        <div class="card text-center border-0 h-100">
           <img src="${imageUrl}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
             <h3>${brand}</h3>
             <p class="card-text">${description}</p>
-            <a href="#" class="btn btn-primary data-id="${id}">${price}$</a>
+            <div class="btn-group">
+               <a href="#" class="btn btn-primary mr-2" data-id="${id}">${price}$</a>
+               <button class="btn btn-danger delete-btn" data-id="${id}">delete</button>
+            
+            </div>
+            
           </div>
         </div>
       </div>
   `;
+}
+
+function deleteMofo(e) {
+  const dataAttribute = e.target.dataset;
+  console.log(dataAttribute);
+  const { id } = dataAttribute;
+  console.log(id);
+  fetch(`https://striveschool-api.herokuapp.com/api/product/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU',
+      'Content-Type': 'application/json',
+    },
+  }).then((resp) => {
+    if (resp.ok) {
+      console.log(resp);
+      loadProducts();
+    }
+  });
 }

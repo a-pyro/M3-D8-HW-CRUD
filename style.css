@@ -53,7 +53,6 @@ body {
     radial-gradient(ellipse at 28% 0%, #ffcfac 0%, rgba(98, 149, 144, 0.5) 100%),
     linear-gradient(180deg, #cd6e8a 0%, #f5eab0 69%, #d6c8a2 70%, #a2758d 100%);
   background-blend-mode: normal, normal, screen, overlay, normal;
-  height: 100vh;
 }
 h1,
 h2,
