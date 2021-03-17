@@ -53,3 +53,30 @@ const shit = '💩',
                 "password":"pass"
             }   
  */
+
+/* 
+fetch("https://striveschool-api.herokuapp.com/api/product/", {
+headers: {
+"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU"
+}
+})
+*/
+
+const token =
+  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODc2NTMsImV4cCI6MTYxNzE5NzI1M30.LgLmP34Ytsk8aLQOjvOavdKiTiCaXHjtuGKzjqp1Geg';
+const endpoint = 'https://striveschool-api.herokuapp.com/api/product/';
+
+const loadProducts = async () => {
+  const response = await fetch(
+    'https://striveschool-api.herokuapp.com/api/product/',
+    {
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU',
+      },
+    }
+  );
+  const data = await response.json();
+  console.log(data);
+};
+window.addEventListener('DOMContentLoaded', loadProducts);
