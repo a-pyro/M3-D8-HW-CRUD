@@ -24,6 +24,8 @@ async function collectData(e) {
     }, {});
     const response = await sendData(newRobot);
     console.log(response);
+    Array.from(inputFields).forEach((input) => input.value === '');
+    showAlert('Roboto added', 'success');
   } catch (error) {
     console.log(error);
   }
@@ -51,4 +53,21 @@ async function sendData(obj) {
   } catch (error) {
     console.log(error);
   }
+}
+
+function showAlert(message, status) {
+  const alert = `
+  <div class="alert alert-${status}" role="alert animate__animated animate__faster animate__fadeInUp">
+    ${message}
+  </div>
+  `;
+  form.insertAdjacentHTML('beforeend', alert);
+  setTimeout(() => {
+    const alert = document.querySelector('.alert');
+    alert.classList.remove('animate__fadeInUp');
+    alert.classList.add('animate__animate__fadeOutDown');
+    setTimeout(() => {
+      alert.remove();
+    }, 600);
+  }, 5000);
 }

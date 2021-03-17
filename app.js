@@ -68,7 +68,8 @@ const endpoint = 'https://striveschool-api.herokuapp.com/api/product/';
 const carouselInner = document.querySelector(
   '#carouselExampleControls .carousel-inner'
 );
-console.log(carouselInner);
+const rowCardsSection = document.getElementById('rowCardsSection');
+
 const loadProducts = async () => {
   const response = await fetch(
     'https://striveschool-api.herokuapp.com/api/product/',
@@ -91,11 +92,15 @@ function randerData(data) {
     (acc, cv, idx) => acc + CarouselItemComponent(cv, idx),
     ''
   );
+  rowCardsSection.innerHTML = data.reduce(
+    (acc, cv, idx) => acc + CardRowComponent(cv, idx),
+    ''
+  );
 }
 // https://robohash.org/
 
 function CarouselItemComponent(
-  { brand, description, imageUrl, name, price },
+  { brand, description, imageUrl, name, price, _id: id },
   idx
 ) {
   return `
@@ -106,7 +111,26 @@ function CarouselItemComponent(
             <h5 class="card-title">${name}</h5>
             <h3>${brand}</h3>
             <p class="card-text">${description}</p>
-            <a href="#" class="btn btn-primary">${price}$</a>
+            <a href="#" class="btn btn-primary data-id="${id}">${price}$</a>
+          </div>
+        </div>
+      </div>
+  `;
+}
+
+function CardRowComponent(
+  { brand, description, imageUrl, name, price, _id: id },
+  idx
+) {
+  return `
+      <div class="col col-3">
+        <div class="card bg-transparent text-center border-0">
+          <img src="${imageUrl}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">${name}</h5>
+            <h3>${brand}</h3>
+            <p class="card-text">${description}</p>
+            <a href="#" class="btn btn-primary data-id="${id}">${price}$</a>
           </div>
         </div>
       </div>
