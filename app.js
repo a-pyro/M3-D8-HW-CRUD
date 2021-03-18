@@ -43,6 +43,20 @@ const shit = '💩',
             - A backoffice page, where you can insert the product by specifying the parameters
             - A front page, where the user can see the available products
 
+            day 2
+            Today you have to implement:
+
+            - In the backoffice page
+                a) Add a button and the functionality to EDIT a single product ( PUT  endpoint/{id})
+                b) Add a button and the functionality to DELETE a single product ( DELETE endpoint/{id})
+                c) Add validation to the product creation/edit form
+                d) Display an error message if something goes wrong
+
+            - In the front page
+                a) Add a loader while waiting for the product to load
+                b) Add a link on each item to go to a detail page
+
+            - Create a new detail page where you are going to display the item information
             ------ N.B. ------
 
             Tokens duration is set to 14 days. Whenever you'll need to obtain a new one you can send the following request:
@@ -96,8 +110,8 @@ function randerData(data) {
     (acc, cv) => acc + CardRowComponent(cv),
     ''
   );
-  const deleteBtns = document.querySelectorAll('.delete-btn');
-  deleteBtns.forEach((btn) => btn.addEventListener('click', deleteMofo));
+  // const deleteBtns = document.querySelectorAll('.delete-btn');
+  // deleteBtns.forEach((btn) => btn.addEventListener('click', deleteMofo));
 }
 // https://robohash.org/
 
@@ -112,8 +126,9 @@ function CarouselItemComponent(
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
             <h3>${brand}</h3>
-            <p class="card-text">${description}</p>
-            <a href="#" class="btn btn-primary data-id="${id}">${price}$</a>
+            <a href="details.html/?id=${id}" class"d-block">More Details</a>
+
+            <a href="#" class="btn btn-primary" data-id="${id}">${price}$</a>
           </div>
         </div>
       </div>
@@ -135,10 +150,10 @@ function CardRowComponent({
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
             <h3>${brand}</h3>
-            <p class="card-text">${description}</p>
-            <div class="btn-group">
+            <a href="details.html/?id=${id}">More Details</a>
+            
                <a href="#" class="btn btn-primary mr-2" data-id="${id}">${price}$</a>
-               <button class="btn btn-danger delete-btn" data-id="${id}">delete</button>
+
             
             </div>
             
@@ -148,7 +163,7 @@ function CardRowComponent({
   `;
 }
 
-function deleteMofo(e) {
+/* function deleteMofo(e) {
   const dataAttribute = e.target.dataset;
   console.log(dataAttribute);
   const { id } = dataAttribute;
@@ -166,4 +181,4 @@ function deleteMofo(e) {
       loadProducts();
     }
   });
-}
+} */

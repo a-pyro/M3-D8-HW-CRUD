@@ -1,5 +1,7 @@
 # M3-D8-HW-CRUD
- https://a-pyro.github.io/M3-D8-HW-CRUD-RoboShop/
+
+https://a-pyro.github.io/M3-D8-HW-CRUD-RoboShop/
+
 <!--
 
             You are building the new Amazon.
@@ -38,6 +40,22 @@
 
             - A backoffice page, where you can insert the product by specifying the parameters
             - A front page, where the user can see the available products
+
+
+            day 2
+            Today you have to implement:
+
+            - In the backoffice page
+                a) Add a button and the functionality to EDIT a single product ( PUT  endpoint/{id})
+                b) Add a button and the functionality to DELETE a single product ( DELETE endpoint/{id})
+                c) Add validation to the product creation/edit form
+                d) Display an error message if something goes wrong
+
+            - In the front page
+                a) Add a loader while waiting for the product to load
+                b) Add a link on each item to go to a detail page
+
+            - Create a new detail page where you are going to display the item information
 
             ------ N.B. ------
 
