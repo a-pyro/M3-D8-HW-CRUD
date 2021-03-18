@@ -89,3 +89,33 @@ function showAlert(message, status) {
     }, 600);
   }, 5000);
 }
+
+// day 2
+const selectMenu = document.getElementById('inputGroupSelect04');
+const selectEditBtn = document.getElementById('selectEditBtn');
+
+window.onload = loadProducts();
+
+async function loadProducts() {
+  try {
+    const response = await fetch(
+      'https://striveschool-api.herokuapp.com/api/product/',
+      {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU',
+        },
+      }
+    );
+    const data = await response.json();
+
+    console.log(data);
+    data.forEach((robot) => renderOptions(robot));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function renderOptions({ name, brand, _id: id }) {
+  selectMenu.innerHTML += `<option value="${id}"><span>${name}</span>, <span>${brand}</span>, <span>${id}</span></option>`;
+}
