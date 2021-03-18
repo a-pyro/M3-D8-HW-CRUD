@@ -240,8 +240,29 @@ async function editProduct() {
 }
 
 async function deleteProduct() {
-  console.log(robotID);
   try {
+    const resp = await fetch(
+      `https://striveschool-api.herokuapp.com/api/product/${robotID}`,
+      {
+        method: 'DELETE',
+        headers: new Headers({
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU',
+        }),
+      }
+    );
+
+    if (resp.ok) {
+      console.log(resp);
+      clearForm();
+      showAlert('Item deleted correctly', 'success');
+      loadProductsOnSelectMenu();
+      toggleBtns();
+      editMode = !editMode;
+    } else {
+      showAlert('Whooops, something went wrong', 'danger');
+      console.log(resp);
+    }
   } catch (error) {
     console.log(error);
   }
