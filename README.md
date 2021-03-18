@@ -1,4 +1,4 @@
-# M3-D8-HW-CRUD
+# M3-D8-HW-CRUD-RoboShop
 
 https://a-pyro.github.io/M3-D8-HW-CRUD-RoboShop/
 
