@@ -27,13 +27,30 @@
             
             */
 const form = document.getElementById('mainForm');
+const submitBtn = document.getElementById('submitBtn');
+let robotID;
+let editMode = false;
+const selectMenu = document.getElementById('inputGroupSelect04');
+const putBtn = document.getElementById('putBtn');
+const deleteBtn = document.getElementById('deleteBtn');
+
 form.addEventListener('submit', collectData);
+const inputFields = document.getElementsByTagName('input');
+const textArea = document.getElementById('description');
+
 // https://robohash.org/
 async function collectData(e) {
   try {
     e.preventDefault();
-    const inputFields = document.getElementsByTagName('input');
-    const textArea = document.getElementById('description');
+    if (editMode) {
+      showAlert(
+        `youre in edit mode: you should first submit modifications to current item or delete it, before adding a new one`,
+        'danger'
+      );
+      clearForm();
+      editMode = !editMode;
+      return;
+    }
 
     const newRobot = Array.from(inputFields).reduce((acc, cv) => {
       acc[cv.id] = cv.value;
@@ -98,8 +115,6 @@ function showAlert(message, status) {
 }
 
 // day 2
-const selectMenu = document.getElementById('inputGroupSelect04');
-const selectEditBtn = document.getElementById('selectEditBtn');
 
 window.onload = loadProductsOnSelectMenu();
 
@@ -154,9 +169,90 @@ async function getSingleProduct() {
     );
     const data = await response.json();
     console.log(data);
+    editMode = !editMode;
+    robotID = id;
+    toggleBtns();
+    renderProductInForm(data);
   } catch (error) {
     console.log(error);
   }
 }
 
-function renderProductInForm({ _id: id, name, description, brand, imageUrl }) {}
+function renderProductInForm({ name, description, brand, imageUrl, price }) {
+  Array.from(inputFields).forEach((field) => {
+    switch (field.id) {
+      case 'name':
+        field.value = name;
+        break;
+      case 'brand':
+        field.value = brand;
+        break;
+      case 'imageUrl':
+        field.value = imageUrl;
+        break;
+      case 'price':
+        field.value = price;
+        break;
+    }
+  });
+  textArea.value = description;
+}
+
+deleteBtn.addEventListener('click', deleteProduct);
+putBtn.addEventListener('click', editProduct);
+
+async function editProduct() {
+  console.log(robotID);
+  //gatering new info
+  const modifiedRobot = Array.from(inputFields).reduce((acc, cv) => {
+    acc[cv.id] = cv.value;
+    return acc;
+  }, {});
+  modifiedRobot.description = textArea.value;
+
+  try {
+    const response = await fetch(
+      `https://striveschool-api.herokuapp.com/api/product/${robotID}`,
+      {
+        method: 'PUT',
+        headers: new Headers({
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU',
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(modifiedRobot),
+      }
+    );
+
+    if (response.ok) {
+      console.log(response);
+      clearForm();
+      showAlert('Item modified correctly', 'success');
+      loadProductsOnSelectMenu();
+      toggleBtns();
+      editMode = !editMode;
+    } else {
+      showAlert('Whooops, something went wrong', 'danger');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function deleteProduct() {
+  console.log(robotID);
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function clearForm() {
+  Array.from(inputFields).forEach((field) => (field.value = ''));
+  textArea.value = '';
+}
+function toggleBtns() {
+  submitBtn.classList.toggle('d-none');
+  putBtn.classList.toggle('d-none');
+  deleteBtn.classList.toggle('d-none');
+}

@@ -116,15 +116,14 @@
           </div>
           <div class="form-group">
             <label for="description" class="d-block">Description</label>
-            <textarea name="description" id="description" cols="30" rows="5" required></textarea>
-            <!-- <input
-              type="text"
-              class="form-control"
+            <textarea
+              name="description"
               id="description"
-              aria-describedby="description"
+              cols="30"
+              rows="5"
               required
-            />
-          </div> -->
+            ></textarea>
+          </div>
           <div class="form-group">
             <label for="brand">brand</label>
             <input
@@ -155,10 +154,24 @@
               required
             />
           </div>
-
-          <button type="submit" class="btn btn-primary btn-block mb-3">
+          <!-- submit btn -->
+          <button
+            id="submitBtn"
+            type="submit"
+            class="btn btn-primary mb-3 btn-block"
+          >
             Submit
           </button>
+
+          <div class="btn-group w-100" role="group" aria-label="Basic example">
+            <button id="putBtn" type="button" class="btn btn-info d-none">
+              Sumbit Modifications
+            </button>
+
+            <button id="deleteBtn" type="button" class="btn btn-danger d-none">
+              Delete
+            </button>
+          </div>
         </form>
       </main>
 
