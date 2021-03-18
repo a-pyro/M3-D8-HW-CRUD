@@ -126,7 +126,7 @@ function CarouselItemComponent(
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
             <h3>${brand}</h3>
-            <a href="details.html/?id=${id}" class"d-block">More Details</a>
+            <a href="./details.html?id=${id}" class"d-block">More Details</a>
 
             <a href="#" class="btn btn-primary" data-id="${id}">${price}$</a>
           </div>
@@ -150,9 +150,9 @@ function CardRowComponent({
           <div class="card-body">
             <h5 class="card-title">${name}</h5>
             <h3>${brand}</h3>
-            <a href="details.html/?id=${id}">More Details</a>
+            <a href="./details.html?id=${id}">More Details</a>
             
-               <a href="#" class="btn btn-primary mr-2" data-id="${id}">${price}$</a>
+               <a href="details.html" class="btn btn-primary mr-2" data-id="${id}">${price}$</a>
 
             
             </div>
