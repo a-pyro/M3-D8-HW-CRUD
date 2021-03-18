@@ -29,7 +29,6 @@ async function collectData(e) {
     showAlert('Roboto added', 'success');
   } catch (error) {
     showAlert('Ups some error occured', 'danger');
-
     console.log(error);
   }
 }
