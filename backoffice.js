@@ -35,7 +35,7 @@ const putBtn = document.getElementById('putBtn');
 const deleteBtn = document.getElementById('deleteBtn');
 
 form.addEventListener('submit', collectData);
-const inputFields = document.getElementsByTagName('input');
+const inputFields = Array.from(document.getElementsByTagName('input'));
 const textArea = document.getElementById('description');
 
 // https://robohash.org/
@@ -52,7 +52,7 @@ async function collectData(e) {
       return;
     }
 
-    const newRobot = Array.from(inputFields).reduce((acc, cv) => {
+    const newRobot = inputFields.reduce((acc, cv) => {
       acc[cv.id] = cv.value;
       return acc;
     }, {});
@@ -61,7 +61,7 @@ async function collectData(e) {
 
     const response = await sendData(newRobot);
     console.log(response);
-    Array.from(inputFields).forEach((input) => (input.value = ''));
+    inputFields.forEach((input) => (input.value = ''));
     textArea.value = '';
     // showAlert('Roboto added', 'success');
     loadProductsOnSelectMenu();
@@ -179,7 +179,7 @@ async function getSingleProduct() {
 }
 
 function renderProductInForm({ name, description, brand, imageUrl, price }) {
-  Array.from(inputFields).forEach((field) => {
+  inputFields.forEach((field) => {
     switch (field.id) {
       case 'name':
         field.value = name;
@@ -204,7 +204,7 @@ putBtn.addEventListener('click', editProduct);
 async function editProduct() {
   console.log(robotID);
   //gatering new info
-  const modifiedRobot = Array.from(inputFields).reduce((acc, cv) => {
+  const modifiedRobot = inputFields.reduce((acc, cv) => {
     acc[cv.id] = cv.value;
     return acc;
   }, {});
@@ -269,7 +269,7 @@ async function deleteProduct() {
 }
 
 function clearForm() {
-  Array.from(inputFields).forEach((field) => (field.value = ''));
+  inputFields.forEach((field) => (field.value = ''));
   textArea.value = '';
 }
 function toggleBtns() {
