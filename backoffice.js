@@ -46,7 +46,7 @@ async function collectData(e) {
     console.log(response);
     Array.from(inputFields).forEach((input) => (input.value = ''));
     textArea.value = '';
-    showAlert('Roboto added', 'success');
+    // showAlert('Roboto added', 'success');
     loadProductsOnSelectMenu();
   } catch (error) {
     showAlert('Ups some error occured', 'danger');
@@ -69,9 +69,11 @@ async function sendData(obj) {
       }
     );
     if (response.ok) {
+      showAlert('Robot added', 'success');
       return response;
     } else {
       console.log('there mayhave been errors in your request', response);
+      showAlert(response.status, 'danger');
     }
   } catch (error) {
     console.log(error);
