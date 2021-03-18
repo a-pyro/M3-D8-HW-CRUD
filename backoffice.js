@@ -28,21 +28,26 @@
             */
 const form = document.getElementById('mainForm');
 form.addEventListener('submit', collectData);
-
+// https://robohash.org/
 async function collectData(e) {
   try {
     e.preventDefault();
     const inputFields = document.getElementsByTagName('input');
+    const textArea = document.getElementById('description');
 
     const newRobot = Array.from(inputFields).reduce((acc, cv) => {
       acc[cv.id] = cv.value;
       return acc;
     }, {});
+
+    newRobot.description = textArea.value;
+
     const response = await sendData(newRobot);
     console.log(response);
     Array.from(inputFields).forEach((input) => (input.value = ''));
-
+    textArea.value = '';
     showAlert('Roboto added', 'success');
+    loadProductsOnSelectMenu();
   } catch (error) {
     showAlert('Ups some error occured', 'danger');
     console.log(error);
@@ -94,9 +99,9 @@ function showAlert(message, status) {
 const selectMenu = document.getElementById('inputGroupSelect04');
 const selectEditBtn = document.getElementById('selectEditBtn');
 
-window.onload = loadProducts();
+window.onload = loadProductsOnSelectMenu();
 
-async function loadProducts() {
+async function loadProductsOnSelectMenu() {
   try {
     const response = await fetch(
       'https://striveschool-api.herokuapp.com/api/product/',
@@ -110,12 +115,46 @@ async function loadProducts() {
     const data = await response.json();
 
     console.log(data);
-    data.forEach((robot) => renderOptions(robot));
+    renderOptions(data);
   } catch (error) {
     console.log(error);
   }
 }
 
-function renderOptions({ name, brand, _id: id }) {
-  selectMenu.innerHTML += `<option value="${id}"><span>${name}</span>, <span>${brand}</span>, <span>${id}</span></option>`;
+function renderOptions(data) {
+  selectMenu.innerHTML = data.reduce(
+    (acc, cv) => acc + OptionComponent(cv),
+    ''
+  );
 }
+
+function OptionComponent({ name, brand, _id: id }) {
+  return `
+  <option value="${id}"><span>${name}</span>, <span>${brand}</span>, <span>${id}</span></option>
+  `;
+}
+
+selectEditBtn.addEventListener('click', getSingleProduct);
+
+async function getSingleProduct() {
+  if (selectMenu.value === 'Choose an item to edit') return;
+  try {
+    const id = selectMenu.value;
+    console.log(id);
+    const response = await fetch(
+      `https://striveschool-api.herokuapp.com/api/product/${id}`,
+      {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDUyMDNjNDg5YzI2ZjAwMTU3ZjljNDMiLCJpYXQiOjE2MTU5ODgzMzUsImV4cCI6MTYxNzE5NzkzNX0.ZkirlemsOm9gKIdP1GliGmMvD2oYPJDMHyPyrTjZkUU',
+        },
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function renderProductInForm({ _id: id, name, description, brand, imageUrl }) {}
